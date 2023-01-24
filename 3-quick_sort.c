@@ -22,7 +22,7 @@ void swap(int *array, int position1, int position2)
  * @high: rightmost index of array
  * @size: size of array
  *
- * Return: index of smaller element
+ * Return: position of pivot
  */
 int partition(int *array, int low, int high, size_t size)
 {
