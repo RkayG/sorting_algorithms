@@ -1,5 +1,10 @@
 #include "sort.h"
 
+int partition(int *array, int low, int high, size_t size);
+void swap(int *array, int position1, int position2);
+void quicksort(int *array, int low, int high, size_t size);
+void quick_sort(int *array, size_t size);
+
 /**
  * swap - swaps two positions
  * @array: array of integers
