@@ -1,71 +1,64 @@
 #include "sort.h"
 
-int partition(int *array, int low, int high, size_t size);
-void swap(int *array, int position1, int position2);
-void quicksort(int *array, int low, int high, size_t size);
+int partition(int *array, int start, int end, size_t size);
+void quicksort(int *array, int start, int end, size_t size);
 void quick_sort(int *array, size_t size);
-
-/**
- * swap - swaps two positions
- * @array: array of integers
- * @position1: first position
- * @position2: second position
- */
-void swap(int *array, int position1, int position2)
-{
-	int temp;
-
-	temp = array[position1];
-	array[position1] = array[position2];
-	array[position2] = temp;
-}
 
 /**
  * partition - partitions an array into sub-arrays using Lomuto's scheme
  * @array: array to be partitioned
- * @low: leftmost index of array
- * @high: rightmost index of array
+ * @start: leftmost index of array
+ * @end: rightmost index of array
  * @size: size of array
  *
  * Return: position of pivot
  */
-int partition(int *array, int low, int high, size_t size)
+int partition(int *array, int start, int end, size_t size)
 {
-	int pivot = array[high];
-	int i = (low - 1);
-	int j;
+	int pivot = array[end];
+	int i = start, j, temp;
 
-	for (j = low; j <= high - 1; j++)
+	for (j = start; j < end; j++)
 	{
 		if (array[j] <= pivot)
 		{
+			if (i != j)
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 			i++;
-			swap(array, i, j);
-			print_array(array, size);
 		}
 	}
-	swap(array, i + 1, high);
-
-	return (i + 1);
+	if (i != end)
+	{
+		temp = array[i];
+		array[i] = array[end];
+		array[end] = temp;
+		print_array(array, size);
+	}
+	return (i);
 }
 
 /**
- * quicksort - sorts an array of integers in ascending order
+ * quicksort - sorts an array of integers in ascending order recursively
  * using the Quick sort algorithm
  * @array: array to be sorted
- * @low: leftmost index of array
- * @high: rightmost index of array
+ * @start: leftmost index of array
+ * @end: rightmost index of array
  * @size: size of array
  */
-void quicksort(int *array, int low, int high, size_t size)
+void quicksort(int *array, int start, int end, size_t size)
 {
 	int pi;
 
-	if (low < high)
+	if (start < end)
 	{
-		pi = partition(array, low, high, size);
-		quicksort(array, low, pi - 1, size);
-		quicksort(array, pi + 1, high, size);
+		pi = partition(array, start, end, size);
+		quicksort(array, start, pi - 1, size);
+		quicksort(array, pi + 1, end, size);
 	}
 }
 
